@@ -17,15 +17,18 @@ namespace ReportingCapstone.Migrations
 
         protected override void Seed(ReportingCapstone.Models.ApplicationDbContext context)
         {
-            RoleStore<IdentityRole> roleStore = new RoleStore<IdentityRole>(context);
-            RoleManager<IdentityRole> roleManager = new RoleManager<IdentityRole>(roleStore);
-            UserStore<ApplicationUser> userStore = new UserStore<ApplicationUser>(context);
-            UserManager<ApplicationUser> userManager = new ApplicationUserManager(userStore);
-            ApplicationUser admin = new ApplicationUser { UserName = "admin@gmail.com" };
+            if (!context.Users.Any(u => u.UserName == "admin@gmail.com"))
+            {
+                RoleStore<IdentityRole> roleStore = new RoleStore<IdentityRole>(context);
+                RoleManager<IdentityRole> roleManager = new RoleManager<IdentityRole>(roleStore);
+                UserStore<ApplicationUser> userStore = new UserStore<ApplicationUser>(context);
+                UserManager<ApplicationUser> userManager = new ApplicationUserManager(userStore);
+                ApplicationUser admin = new ApplicationUser { UserName = "admin@gmail.com" };
 
-            userManager.Create(admin, password: "password");
-            roleManager.Create(new IdentityRole { Name = "admin" });
-            userManager.AddToRole(admin.Id, "admin");
+                userManager.Create(admin, password: "password");
+                roleManager.Create(new IdentityRole { Name = "admin" });
+                userManager.AddToRole(admin.Id, "admin");
+            }
         }
     }
 }

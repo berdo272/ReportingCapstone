@@ -8,14 +8,14 @@ namespace ManufacturingReporting.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class ConfigurationManufacturingDB : DbMigrationsConfiguration<ReportingCapstone.Models.ApplicationDbContext>
+    internal sealed class ConfigurationReportingCapstoneDB : DbMigrationsConfiguration<ReportingCapstone.Models.ReportingCapstoneDBContext>
     {
-        public ConfigurationManufacturingDB()
+        public ConfigurationReportingCapstoneDB()
         {
             AutomaticMigrationsEnabled = true;
         }
 
-        protected override void Seed(ReportingCapstone.Models.ApplicationDbContext context)
+        protected override void Seed(ReportingCapstone.Models.ReportingCapstoneDBContext context)
         {
 
         }
