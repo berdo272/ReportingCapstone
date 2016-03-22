@@ -5,7 +5,7 @@ using System.Web;
 
 namespace ReportingCapstone.Models
 {
-    public class DownTimeTypes
+    public class DownTimeType
     {
         public int Id { get; set; }
         public string Description { get; set; }

@@ -1,0 +1,39 @@
+﻿@model IEnumerable<ReportingCapstone.Models.AlertThreshold>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Manage Alert Notification Thresholds</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Precent Downtime
+        </th>
+        <th>
+            Notes
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.PercentDowntimeThreshold)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AditionalAlertNotes)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

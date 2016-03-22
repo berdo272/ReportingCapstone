@@ -196,6 +196,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AlertThresholdsController.cs" />
+    <Compile Include="Controllers\DepartmentsController.cs" />
+    <Compile Include="Controllers\DownTimeEventsController.cs" />
+    <Compile Include="Controllers\DownTimeTypesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
@@ -209,9 +213,9 @@
     <Compile Include="Migrations\ConfigurationReportingCapstoneDB.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AlertThreshold.cs" />
-    <Compile Include="Models\Departments.cs" />
+    <Compile Include="Models\Department.cs" />
     <Compile Include="Models\DownTimeEvent.cs" />
-    <Compile Include="Models\DownTimeTypes.cs" />
+    <Compile Include="Models\DownTimeType.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ReportingCapstoneDBContext.cs" />
@@ -278,6 +282,26 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\AlertThresholds\Create.cshtml" />
+    <Content Include="Views\AlertThresholds\Delete.cshtml" />
+    <Content Include="Views\AlertThresholds\Details.cshtml" />
+    <Content Include="Views\AlertThresholds\Edit.cshtml" />
+    <Content Include="Views\AlertThresholds\Index.cshtml" />
+    <Content Include="Views\Departments\Create.cshtml" />
+    <Content Include="Views\Departments\Delete.cshtml" />
+    <Content Include="Views\Departments\Details.cshtml" />
+    <Content Include="Views\Departments\Edit.cshtml" />
+    <Content Include="Views\Departments\Index.cshtml" />
+    <Content Include="Views\DownTimeTypes\Create.cshtml" />
+    <Content Include="Views\DownTimeTypes\Delete.cshtml" />
+    <Content Include="Views\DownTimeTypes\Details.cshtml" />
+    <Content Include="Views\DownTimeTypes\Edit.cshtml" />
+    <Content Include="Views\DownTimeTypes\Index.cshtml" />
+    <Content Include="Views\DownTimeEvents\Create.cshtml" />
+    <Content Include="Views\DownTimeEvents\Delete.cshtml" />
+    <Content Include="Views\DownTimeEvents\Details.cshtml" />
+    <Content Include="Views\DownTimeEvents\Edit.cshtml" />
+    <Content Include="Views\DownTimeEvents\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
