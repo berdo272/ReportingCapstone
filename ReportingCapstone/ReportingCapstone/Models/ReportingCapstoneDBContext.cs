@@ -4,11 +4,11 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
-namespace ManufacturingReporting.Models
+namespace ReportingCapstone.Models
 {
-    public class ManufacturingDBContext : DbContext
+    public class ReportingCapstoneDBContext : DbContext
     {
-        public ManufacturingDBContext() : base("defaultConnection")
+        public ReportingCapstoneDBContext() : base("defaultConnection")
         {
 
         }

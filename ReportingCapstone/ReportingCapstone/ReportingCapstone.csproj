@@ -201,13 +201,19 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201603221516536_initialSchema.cs" />
+    <Compile Include="Migrations\201603221516536_initialSchema.Designer.cs">
+      <DependentUpon>201603221516536_initialSchema.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\ConfigurationApplicationDB.cs" />
+    <Compile Include="Migrations\ConfigurationReportingCapstoneDB.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Departments.cs" />
     <Compile Include="Models\DownTimeEvent.cs" />
     <Compile Include="Models\DownTimeTypes.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\ManufacturingDBContext.cs" />
+    <Compile Include="Models\ReportingCapstoneDBContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -282,6 +288,11 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201603221516536_initialSchema.resx">
+      <DependentUpon>201603221516536_initialSchema.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
