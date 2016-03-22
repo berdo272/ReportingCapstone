@@ -208,6 +208,7 @@
     <Compile Include="Migrations\ConfigurationApplicationDB.cs" />
     <Compile Include="Migrations\ConfigurationReportingCapstoneDB.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AlertThreshold.cs" />
     <Compile Include="Models\Departments.cs" />
     <Compile Include="Models\DownTimeEvent.cs" />
     <Compile Include="Models\DownTimeTypes.cs" />
