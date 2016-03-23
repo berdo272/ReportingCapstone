@@ -13,10 +13,10 @@ namespace ReportingCapstone.Models
 
         }
 
-        public DbSet<DownTimeEvent> DowntimeLog { get; set; }
+        public DbSet<DownTimeEvent> DownTimeEvents { get; set; }
         public DbSet<Department> Departments { get; set; }
-        public DbSet<DownTimeType> ErrorCodes { get; set; }
-        public DbSet<AlertThreshold> Alerts { get; set; }
+        public DbSet<DownTimeType> DownTimeTypes { get; set; }
+        public DbSet<AlertThreshold> AlertThresholds { get; set; }
 
     }
 }

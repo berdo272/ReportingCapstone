@@ -1,4 +1,6 @@
-namespace ManufacturingReporting.Migrations
+using ReportingCapstone.Models;
+
+namespace ReportingCapstone.Migrations
 {
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;

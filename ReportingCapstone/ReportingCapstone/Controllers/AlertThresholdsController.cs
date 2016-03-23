@@ -12,12 +12,12 @@ namespace ReportingCapstone.Controllers
 {
     public class AlertThresholdsController : Controller
     {
-        private ReportingCapstoneDBContext db = new ReportingCapstoneDBContext();
+        private Models.ReportingCapstoneDBContext db = new Models.ReportingCapstoneDBContext();
 
         // GET: AlertThresholds
         public ActionResult Index()
         {
-            return View(db.Alerts.ToList());
+            return View(db.AlertThresholds.ToList());
         }
 
         // GET: AlertThresholds/Details/5
@@ -27,7 +27,7 @@ namespace ReportingCapstone.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            AlertThreshold alertThreshold = db.Alerts.Find(id);
+            AlertThreshold alertThreshold = db.AlertThresholds.Find(id);
             if (alertThreshold == null)
             {
                 return HttpNotFound();
@@ -50,7 +50,7 @@ namespace ReportingCapstone.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Alerts.Add(alertThreshold);
+                db.AlertThresholds.Add(alertThreshold);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -65,7 +65,7 @@ namespace ReportingCapstone.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            AlertThreshold alertThreshold = db.Alerts.Find(id);
+            AlertThreshold alertThreshold = db.AlertThresholds.Find(id);
             if (alertThreshold == null)
             {
                 return HttpNotFound();
@@ -96,7 +96,7 @@ namespace ReportingCapstone.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            AlertThreshold alertThreshold = db.Alerts.Find(id);
+            AlertThreshold alertThreshold = db.AlertThresholds.Find(id);
             if (alertThreshold == null)
             {
                 return HttpNotFound();
@@ -109,8 +109,8 @@ namespace ReportingCapstone.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            AlertThreshold alertThreshold = db.Alerts.Find(id);
-            db.Alerts.Remove(alertThreshold);
+            AlertThreshold alertThreshold = db.AlertThresholds.Find(id);
+            db.AlertThresholds.Remove(alertThreshold);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

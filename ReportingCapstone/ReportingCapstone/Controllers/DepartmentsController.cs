@@ -12,7 +12,7 @@ namespace ReportingCapstone.Controllers
 {
     public class DepartmentsController : Controller
     {
-        private ReportingCapstoneDBContext db = new ReportingCapstoneDBContext();
+        private Models.ReportingCapstoneDBContext db = new Models.ReportingCapstoneDBContext();
 
         // GET: Departments
         public ActionResult Index()

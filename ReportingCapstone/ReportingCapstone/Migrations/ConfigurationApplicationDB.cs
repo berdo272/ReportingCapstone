@@ -12,7 +12,8 @@ namespace ReportingCapstone.Migrations
     {
         public ConfigurationApplicationDB()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationDataLossAllowed = true;
         }
 
         protected override void Seed(ReportingCapstone.Models.ApplicationDbContext context)
@@ -25,7 +26,7 @@ namespace ReportingCapstone.Migrations
                 UserManager<ApplicationUser> userManager = new ApplicationUserManager(userStore);
                 ApplicationUser admin = new ApplicationUser { UserName = "Supervisor" };
 
-                userManager.Create(admin, password: "password");
+                userManager.Create(admin, password: "Hotdog");
                 roleManager.Create(new IdentityRole { Name = "admin" });
                 userManager.AddToRole(admin.Id, "admin");
             }

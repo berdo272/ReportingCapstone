@@ -12,12 +12,15 @@ namespace ReportingCapstone.Controllers
 {
     public class DownTimeEventsController : Controller
     {
-        private ReportingCapstoneDBContext db = new ReportingCapstoneDBContext();
+        private Models.ReportingCapstoneDBContext db = new Models.ReportingCapstoneDBContext();
 
         // GET: DownTimeEvents
         public ActionResult Index()
         {
-            return View(db.DowntimeLog.ToList());
+            ViewBag.DB = db;
+            
+
+            return View(db.DownTimeEvents.ToList());
         }
 
         // GET: DownTimeEvents/Details/5
@@ -27,17 +30,20 @@ namespace ReportingCapstone.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            DownTimeEvent downTimeEvent = db.DowntimeLog.Find(id);
+            DownTimeEvent downTimeEvent = db.DownTimeEvents.Find(id);
             if (downTimeEvent == null)
             {
                 return HttpNotFound();
             }
             return View(downTimeEvent);
         }
-
+        
         // GET: DownTimeEvents/Create
         public ActionResult Create()
         {
+            ViewBag.DepartmentSelection = new SelectList(db.Departments, "Id", "DepartmentName");
+            ViewBag.EventSelection = new SelectList(db.DownTimeTypes, "Id", "Description");
+
             return View();
         }
 
@@ -46,11 +52,17 @@ namespace ReportingCapstone.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,ProblemCode,DepartmentCode,Date,Duration")] DownTimeEvent downTimeEvent)
+        public ActionResult Create([Bind(Include = "Id,DownTimeTypeId,DepartmentId,Date,Duration")] DownTimeEvent downTimeEvent)
         {
             if (ModelState.IsValid)
             {
-                db.DowntimeLog.Add(downTimeEvent);
+                Department thisDepartment = (Department)db.Departments.First(o => o.Id == downTimeEvent.DepartmentId);
+                DownTimeType errorType = (DownTimeType)db.DownTimeTypes.First(o => o.Id == downTimeEvent.DownTimeTypeId);
+
+                downTimeEvent.departmentName = thisDepartment.DepartmentName;
+                downTimeEvent.ErrorTypeName = errorType.Description;
+
+                db.DownTimeEvents.Add(downTimeEvent);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -61,11 +73,14 @@ namespace ReportingCapstone.Controllers
         // GET: DownTimeEvents/Edit/5
         public ActionResult Edit(int? id)
         {
+            ViewBag.DepartmentSelection = new SelectList(db.Departments, "Id", "DepartmentName");
+            ViewBag.EventSelection = new SelectList(db.DownTimeTypes, "Id", "Description");
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            DownTimeEvent downTimeEvent = db.DowntimeLog.Find(id);
+            DownTimeEvent downTimeEvent = db.DownTimeEvents.Find(id);
             if (downTimeEvent == null)
             {
                 return HttpNotFound();
@@ -78,10 +93,17 @@ namespace ReportingCapstone.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,ProblemCode,DepartmentCode,Date,Duration")] DownTimeEvent downTimeEvent)
+        public ActionResult Edit([Bind(Include = "Id,DownTimeTypeId,DepartmentId,Date,Duration")] DownTimeEvent downTimeEvent)
         {
+            Department thisDepartment = (Department)db.Departments.First(o => o.Id == downTimeEvent.DepartmentId);
+            DownTimeType errorType = (DownTimeType)db.DownTimeTypes.First(o => o.Id == downTimeEvent.DownTimeTypeId);
+
+            downTimeEvent.departmentName = thisDepartment.DepartmentName;
+            downTimeEvent.ErrorTypeName = errorType.Description;
+
             if (ModelState.IsValid)
             {
+
                 db.Entry(downTimeEvent).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -96,7 +118,7 @@ namespace ReportingCapstone.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            DownTimeEvent downTimeEvent = db.DowntimeLog.Find(id);
+            DownTimeEvent downTimeEvent = db.DownTimeEvents.Find(id);
             if (downTimeEvent == null)
             {
                 return HttpNotFound();
@@ -109,8 +131,8 @@ namespace ReportingCapstone.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            DownTimeEvent downTimeEvent = db.DowntimeLog.Find(id);
-            db.DowntimeLog.Remove(downTimeEvent);
+            DownTimeEvent downTimeEvent = db.DownTimeEvents.Find(id);
+            db.DownTimeEvents.Remove(downTimeEvent);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

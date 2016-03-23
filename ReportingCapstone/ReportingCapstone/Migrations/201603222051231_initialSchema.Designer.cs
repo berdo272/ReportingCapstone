@@ -13,12 +13,12 @@ namespace ReportingCapstone.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201603221516536_initialSchema"; }
+            get { return "201603222051231_initialSchema"; }
         }
         
         string IMigrationMetadata.Source
         {
-            get { return null; }
+            get { return Resources.GetString("Source"); }
         }
         
         string IMigrationMetadata.Target

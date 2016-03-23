@@ -12,12 +12,12 @@ namespace ReportingCapstone.Controllers
 {
     public class DownTimeTypesController : Controller
     {
-        private ReportingCapstoneDBContext db = new ReportingCapstoneDBContext();
+        private Models.ReportingCapstoneDBContext db = new Models.ReportingCapstoneDBContext();
 
         // GET: DownTimeTypes
         public ActionResult Index()
         {
-            return View(db.ErrorCodes.ToList());
+            return View(db.DownTimeTypes.ToList());
         }
 
         // GET: DownTimeTypes/Details/5
@@ -27,7 +27,7 @@ namespace ReportingCapstone.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            DownTimeType downTimeTypes = db.ErrorCodes.Find(id);
+            DownTimeType downTimeTypes = db.DownTimeTypes.Find(id);
             if (downTimeTypes == null)
             {
                 return HttpNotFound();
@@ -50,7 +50,8 @@ namespace ReportingCapstone.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.ErrorCodes.Add(downTimeTypes);
+
+                db.DownTimeTypes.Add(downTimeTypes);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -65,7 +66,7 @@ namespace ReportingCapstone.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            DownTimeType downTimeTypes = db.ErrorCodes.Find(id);
+            DownTimeType downTimeTypes = db.DownTimeTypes.Find(id);
             if (downTimeTypes == null)
             {
                 return HttpNotFound();
@@ -96,7 +97,7 @@ namespace ReportingCapstone.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            DownTimeType downTimeTypes = db.ErrorCodes.Find(id);
+            DownTimeType downTimeTypes = db.DownTimeTypes.Find(id);
             if (downTimeTypes == null)
             {
                 return HttpNotFound();
@@ -109,8 +110,8 @@ namespace ReportingCapstone.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            DownTimeType downTimeTypes = db.ErrorCodes.Find(id);
-            db.ErrorCodes.Remove(downTimeTypes);
+            DownTimeType downTimeTypes = db.DownTimeTypes.Find(id);
+            db.DownTimeTypes.Remove(downTimeTypes);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
