@@ -197,6 +197,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AlertThresholdsController.cs" />
+    <Compile Include="Controllers\ChartsController.cs" />
     <Compile Include="Controllers\DepartmentsController.cs" />
     <Compile Include="Controllers\DownTimeEventsController.cs" />
     <Compile Include="Controllers\DownTimeTypesController.cs" />
@@ -298,6 +299,9 @@
     <Content Include="Views\DownTimeEvents\Details.cshtml" />
     <Content Include="Views\DownTimeEvents\Edit.cshtml" />
     <Content Include="Views\DownTimeEvents\Index.cshtml" />
+    <Content Include="Views\Charts\Index.cshtml" />
+    <Content Include="Views\Charts\Perato.cshtml" />
+    <Content Include="Views\Charts\Trend.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
