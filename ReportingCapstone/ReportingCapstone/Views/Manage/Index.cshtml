@@ -23,6 +23,11 @@
             }
             
         </tr>
+        <tr>
+            <td>
+                <br />
+            </td>
+        </tr>
        
         @if ((User.IsInRole("admin")))
             {
@@ -35,8 +40,7 @@
                 <td>
                     <br />
                 </td>
-            </tr>
-            <br />
+            </tr>            
             <tr>
                 <td>
                     @Html.ActionLink("Manage Departments", "index", "Departments", null, new { @class = "btn-primary btn" })
@@ -46,8 +50,7 @@
                 <td>
                     <br />
                 </td>
-            </tr>
-            <br />
+            </tr>            
             <tr>
                 <td>
                     @Html.ActionLink("Manage Alert Thresholds", "index", "AlertThresholds", null, new { @class = "btn-primary btn" })
@@ -57,8 +60,7 @@
                 <td>
                     <br />
                 </td>
-            </tr>
-            <br />
+            </tr>            
             <tr>
                 <td>
                     @Html.ActionLink("Manage Down Time Events", "index", "DownTimeEvents", null, new { @class = "btn-primary btn" })
