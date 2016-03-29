@@ -130,7 +130,7 @@ namespace ReportingCapstone.Controllers
                     };
                     string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
                     var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    string body = (user.UserName + "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    string body = (user.UserName + " ,Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
                     var toAddress = new MailAddress(model.Email);
 

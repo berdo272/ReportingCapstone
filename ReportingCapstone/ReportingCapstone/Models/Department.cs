@@ -10,7 +10,7 @@ namespace ReportingCapstone.Models
     public class Department
     {
         public int Id { get; set; }
-        [DisplayName("Department Name")]
+        [DisplayName("DepartmentName")]
         public string DepartmentName { get; set; }
     }
 }

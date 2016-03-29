@@ -41,7 +41,7 @@ namespace ReportingCapstone.Controllers
         // GET: DownTimeEvents/Create
         public ActionResult Create()
         {
-            ViewBag.DepartmentSelection = new SelectList(db.Departments, "Id", "Department Name");
+            ViewBag.DepartmentSelection = new SelectList(db.Departments, "Id", "DepartmentName");
             ViewBag.EventSelection = new SelectList(db.DownTimeTypes, "Id", "Description");
 
             return View();
