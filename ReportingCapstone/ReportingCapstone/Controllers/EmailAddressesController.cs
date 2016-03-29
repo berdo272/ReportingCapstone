@@ -10,6 +10,7 @@ using ReportingCapstone.Models;
 
 namespace ReportingCapstone.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class EmailAddressesController : Controller
     {
         private ReportingCapstoneDBContext db = new ReportingCapstoneDBContext();

@@ -10,27 +10,38 @@
     <h4>Change your account settings</h4>
     <hr />
     <table class="text-left">
-        
+
         <tr>
-            
+
             @if (Model.HasPassword)
             {
-                @Html.ActionLink("Change your password", "ChangePassword",null,null, new { @class = "btn-danger btn" })
+                @Html.ActionLink("Change your password", "ChangePassword", null, null, new { @class = "btn-danger btn" })
             }
             else
             {
-                @Html.ActionLink("Create", "SetPassword",null,null, new {@class = "btn-success btn"})
+                @Html.ActionLink("Create", "SetPassword", null, null, new { @class = "btn-success btn" })
             }
-            
+
         </tr>
         <tr>
             <td>
                 <br />
             </td>
         </tr>
-       
+
         @if ((User.IsInRole("admin")))
             {
+
+            <tr>
+                <td>
+                    @Html.ActionLink("Add An Employee", "Register", "Account", null, new { @class = "btn-warning btn" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <br />
+                </td>
+            </tr>
             <tr>
                 <td>
                     @Html.ActionLink("Manage Down Time Reason Codes", "index", "DownTimeTypes", null, new { @class = "btn-primary btn" })
@@ -40,7 +51,7 @@
                 <td>
                     <br />
                 </td>
-            </tr>            
+            </tr>
             <tr>
                 <td>
                     @Html.ActionLink("Manage Departments", "index", "Departments", null, new { @class = "btn-primary btn" })
@@ -50,7 +61,7 @@
                 <td>
                     <br />
                 </td>
-            </tr>            
+            </tr>
             <tr>
                 <td>
                     @Html.ActionLink("Manage Alert Thresholds", "index", "AlertThresholds", null, new { @class = "btn-primary btn" })
@@ -60,7 +71,7 @@
                 <td>
                     <br />
                 </td>
-            </tr>            
+            </tr>
             <tr>
                 <td>
                     @Html.ActionLink("Manage Down Time Events", "index", "DownTimeEvents", null, new { @class = "btn-primary btn" })
@@ -73,14 +84,22 @@
             </tr>
             <tr>
                 <td>
-                    @Html.ActionLink("View Charts", "index","Charts", null, new { @class = "btn-info btn" })
+                    @Html.ActionLink("Update Email List", "index", "EmailAddresses", null, new { @class = "btn-primary btn" })
                 </td>
             </tr>
             <tr>
                 <td>
-                    @Html.ActionLink("Update Email List", "index", "EmailAddresses", null, new { @class = "btn-primary btn" })
+                    <br />
                 </td>
             </tr>
+            <tr>
+                <td>
+                    @Html.ActionLink("View Charts", "index", "Charts", null, new { @class = "btn-info btn" })
+                </td>
+            </tr>
+           
+
+
         }
     </table>
 </div>

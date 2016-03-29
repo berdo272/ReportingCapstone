@@ -10,7 +10,7 @@ using ReportingCapstone.Models;
 using System.Net.Mail;
 
 namespace ReportingCapstone.Controllers
-{
+{   [Authorize(Roles ="admin")]
     public class DownTimeEventsController : Controller
     {
         private Models.ReportingCapstoneDBContext db = new Models.ReportingCapstoneDBContext();
@@ -41,7 +41,7 @@ namespace ReportingCapstone.Controllers
         // GET: DownTimeEvents/Create
         public ActionResult Create()
         {
-            ViewBag.DepartmentSelection = new SelectList(db.Departments, "Id", "DepartmentName");
+            ViewBag.DepartmentSelection = new SelectList(db.Departments, "Id", "Department Name");
             ViewBag.EventSelection = new SelectList(db.DownTimeTypes, "Id", "Description");
 
             return View();

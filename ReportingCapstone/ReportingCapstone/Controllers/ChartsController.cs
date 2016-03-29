@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace ReportingCapstone.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class ChartsController : Controller
     {
         private Models.ReportingCapstoneDBContext db = new Models.ReportingCapstoneDBContext();

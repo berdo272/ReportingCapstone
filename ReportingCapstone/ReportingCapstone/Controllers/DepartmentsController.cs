@@ -10,6 +10,7 @@ using ReportingCapstone.Models;
 
 namespace ReportingCapstone.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class DepartmentsController : Controller
     {
         private Models.ReportingCapstoneDBContext db = new Models.ReportingCapstoneDBContext();
