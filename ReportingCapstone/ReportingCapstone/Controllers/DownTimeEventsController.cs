@@ -19,9 +19,8 @@ namespace ReportingCapstone.Controllers
         public ActionResult Index()
         {
             ViewBag.DB = db;
-            
 
-            return View(db.DownTimeEvents.ToList());
+            return View(db.DownTimeEvents.OrderByDescending(o=>o.Id).ToList());
         }
 
         // GET: DownTimeEvents/Details/5
@@ -38,7 +37,7 @@ namespace ReportingCapstone.Controllers
             }
             return View(downTimeEvent);
         }
-        
+
         // GET: DownTimeEvents/Create
         public ActionResult Create()
         {
@@ -70,24 +69,25 @@ namespace ReportingCapstone.Controllers
                 List<AlertThreshold> triggers = db.AlertThresholds.ToList();
                 int totalDowntime = 0;
 
-                foreach(DownTimeEvent x in events)
+                foreach (DownTimeEvent x in events)
                 {
                     totalDowntime += x.Duration;
                 }
-                foreach(AlertThreshold trigger in triggers)
+                foreach (AlertThreshold trigger in triggers)
                 {
                     int daysElapsed = (DateTime.Now.Day);
 
-                    if (totalDowntime / (435 * daysElapsed )>= trigger.PercentDowntimeThreshold / 100)
+                    if (totalDowntime / (435 * daysElapsed) >= trigger.PercentDowntimeThreshold / 100)
                     {
-                   
+                        List<EmailAddress> emails = db.EmailList.ToList();
+
+
 
                         var fromAddress = new MailAddress("reportinghost22982@gmail.com", "Report Host");
-                        var toAddress = new MailAddress("berdo272@yahoo.com", "Robert");
+
                         const string fromPassword = "PizzaParty";
                         string subject = "Down Time Alert";
-                        string body = ("This is an automated alert that is set to notify you when a department has exceeded " + trigger.PercentDowntimeThreshold.ToString() + " percent cumulative downtime for the current reporting period. This alert is for the department " + downTimeEvent.departmentName + ", which currently has a total downtime of " + totalDowntime +" minutes.");
-
+                        string body = ("This is an automated alert that is set to notify you when a department has exceeded " + trigger.PercentDowntimeThreshold.ToString() + " percent cumulative downtime for the current reporting period. This alert is for the department " + downTimeEvent.departmentName + ", which currently has a total downtime of " + totalDowntime + " minutes.");
                         var smtp = new SmtpClient
                         {
                             Host = "smtp.gmail.com",
@@ -97,14 +97,20 @@ namespace ReportingCapstone.Controllers
                             UseDefaultCredentials = false,
                             Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
                         };
-                        using (var message = new MailMessage(fromAddress, toAddress)
+                        foreach (EmailAddress email in emails)
                         {
-                            Subject = subject,
-                            Body = body
-                        })
-                        {
-                            smtp.Send(message);
+                            var toAddress = new MailAddress(email.Email);
+
+                            using (var message = new MailMessage(fromAddress, toAddress)
+                            {
+                                Subject = subject,
+                                Body = body
+                            })
+                            {
+                                smtp.Send(message);
+                            }                            
                         }
+
                     }
                 }
 

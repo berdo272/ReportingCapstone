@@ -13,6 +13,7 @@ namespace ReportingCapstone.Models
 
         }
 
+        public DbSet<EmailAddress> EmailList { get; set; }
         public DbSet<DownTimeEvent> DownTimeEvents { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<DownTimeType> DownTimeTypes { get; set; }
