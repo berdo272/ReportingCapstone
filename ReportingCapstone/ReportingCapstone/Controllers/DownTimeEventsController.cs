@@ -8,22 +8,25 @@ using System.Web;
 using System.Web.Mvc;
 using ReportingCapstone.Models;
 using System.Net.Mail;
+using Microsoft.AspNet.Identity;
 
 namespace ReportingCapstone.Controllers
-{   [Authorize(Roles ="admin")]
+{
     public class DownTimeEventsController : Controller
     {
         private Models.ReportingCapstoneDBContext db = new Models.ReportingCapstoneDBContext();
 
         // GET: DownTimeEvents
+        [Authorize(Roles = "admin")]
         public ActionResult Index()
         {
             ViewBag.DB = db;
 
-            return View(db.DownTimeEvents.OrderByDescending(o=>o.Id).ToList());
+            return View(db.DownTimeEvents.OrderByDescending(o => o.Id).ToList());
         }
 
         // GET: DownTimeEvents/Details/5
+        [Authorize(Roles = "admin")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -39,9 +42,21 @@ namespace ReportingCapstone.Controllers
         }
 
         // GET: DownTimeEvents/Create
+        [Authorize]
         public ActionResult Create()
         {
-            ViewBag.DepartmentSelection = new SelectList(db.Departments, "Id", "DepartmentName");
+            ApplicationDbContext ap = new ApplicationDbContext();
+            ApplicationUser currentUser = ap.Users.Find(User.Identity.GetUserId());
+
+            if (currentUser.DepartmentId == 0)
+            {
+                ViewBag.DepartmentSelection = new SelectList(db.Departments, "Id", "DepartmentName");
+            }
+            else
+            {
+                ViewBag.DepartmentSelection = new SelectList(db.Departments.Where(o => o.Id == currentUser.DepartmentId), "Id", "DepartmentName");
+            }
+
             ViewBag.EventSelection = new SelectList(db.DownTimeTypes, "Id", "Description");
 
             return View();
@@ -52,6 +67,7 @@ namespace ReportingCapstone.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Create([Bind(Include = "Id,DownTimeTypeId,DepartmentId,Date,Duration")] DownTimeEvent downTimeEvent)
         {
             if (ModelState.IsValid)
@@ -61,6 +77,8 @@ namespace ReportingCapstone.Controllers
 
                 downTimeEvent.departmentName = thisDepartment.DepartmentName;
                 downTimeEvent.ErrorTypeName = errorType.Description;
+                downTimeEvent.EmployeeId = User.Identity.Name;
+
 
                 db.DownTimeEvents.Add(downTimeEvent);
                 db.SaveChanges();
@@ -87,7 +105,7 @@ namespace ReportingCapstone.Controllers
 
                         const string fromPassword = "PizzaParty";
                         string subject = "Down Time Alert";
-                        string body = ("This is an automated alert that is set to notify you when a department has exceeded " + trigger.PercentDowntimeThreshold.ToString() + " percent cumulative downtime for the current reporting period. This alert is for the department " + downTimeEvent.departmentName + ", which currently has a total downtime of " + totalDowntime + " minutes.");
+                        string body = ("This is an automated alert that is set to notify you when a department has exceeded " + trigger.PercentDowntimeThreshold.ToString() + " percent cumulative downtime for the current reporting period. Department: " + downTimeEvent.departmentName + " To Date Downtime: " + totalDowntime + " minutes.");
                         var smtp = new SmtpClient
                         {
                             Host = "smtp.gmail.com",
@@ -108,20 +126,28 @@ namespace ReportingCapstone.Controllers
                             })
                             {
                                 smtp.Send(message);
-                            }                            
+                            }
                         }
 
                     }
                 }
 
+                if (User.IsInRole("admin"))
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return RedirectToAction("Index", "home", null);
+                }
 
-                return RedirectToAction("Index");
             }
 
             return View(downTimeEvent);
         }
 
         // GET: DownTimeEvents/Edit/5
+        [Authorize(Roles = "admin")]
         public ActionResult Edit(int? id)
         {
             ViewBag.DepartmentSelection = new SelectList(db.Departments, "Id", "DepartmentName");
@@ -144,6 +170,7 @@ namespace ReportingCapstone.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public ActionResult Edit([Bind(Include = "Id,DownTimeTypeId,DepartmentId,Date,Duration")] DownTimeEvent downTimeEvent)
         {
             Department thisDepartment = (Department)db.Departments.First(o => o.Id == downTimeEvent.DepartmentId);
@@ -151,6 +178,7 @@ namespace ReportingCapstone.Controllers
 
             downTimeEvent.departmentName = thisDepartment.DepartmentName;
             downTimeEvent.ErrorTypeName = errorType.Description;
+            downTimeEvent.EmployeeId = User.Identity.Name;
 
             if (ModelState.IsValid)
             {
@@ -163,6 +191,7 @@ namespace ReportingCapstone.Controllers
         }
 
         // GET: DownTimeEvents/Delete/5
+        [Authorize(Roles = "admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -180,6 +209,7 @@ namespace ReportingCapstone.Controllers
         // POST: DownTimeEvents/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public ActionResult DeleteConfirmed(int id)
         {
             DownTimeEvent downTimeEvent = db.DownTimeEvents.Find(id);

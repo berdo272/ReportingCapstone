@@ -17,7 +17,7 @@ namespace ReportingCapstone.Models
         public string departmentName { get; set; }
         [DisplayName("Downtime Type")]
         public string ErrorTypeName { get; set; }
-
+        public string EmployeeId { get; set; }
         
 
 

@@ -98,6 +98,8 @@ namespace ReportingCapstone.Controllers
         [Authorize(Roles ="admin")]
         public ActionResult Register()
         {
+            ReportingCapstoneDBContext db = new ReportingCapstoneDBContext();
+            ViewBag.DepartmentSelection = new SelectList(db.Departments, "Id", "DepartmentName");
             return View();
         }
 
@@ -111,7 +113,7 @@ namespace ReportingCapstone.Controllers
             if (ModelState.IsValid)
             {
                 
-                var user = new ApplicationUser { UserName = model.UserName,Email= model.Email};
+                var user = new ApplicationUser { UserName = model.UserName,Email= model.Email, DepartmentId = model.DepartmentId};
                 var result = await UserManager.CreateAsync(user, "aasdgjlkasdjgu1243890125076huf7178#$@#%@#%");
                     if (result.Succeeded)
                     {
@@ -130,7 +132,7 @@ namespace ReportingCapstone.Controllers
                     };
                     string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
                     var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    string body = (user.UserName + " ,Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    string body = (user.UserName + " ,Please reset your password by clicking " + callbackUrl);
 
                     var toAddress = new MailAddress(model.Email);
 
